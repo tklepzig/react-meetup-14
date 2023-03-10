@@ -1,40 +1,225 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
 
-		<title>reveal.js</title>
+    <title>reveal.js</title>
 
-		<link rel="stylesheet" href="dist/reset.css">
-		<link rel="stylesheet" href="dist/reveal.css">
-		<link rel="stylesheet" href="dist/theme/black.css">
+    <link rel="stylesheet" href="dist/reset.css" />
+    <link rel="stylesheet" href="dist/reveal.css" />
+    <link rel="stylesheet" href="dist/theme/my.css" />
 
-		<!-- Theme used for syntax highlighted code -->
-		<link rel="stylesheet" href="plugin/highlight/monokai.css">
-	</head>
-	<body>
-		<div class="reveal">
-			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
-			</div>
-		</div>
+    <!-- Theme used for syntax highlighted code -->
+    <link rel="stylesheet" href="plugin/highlight/zenburn.css" />
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section data-markdown>
+          <textarea data-template>
+            # Nice headline and opening
+            (nice meme?, Schwerpunkt Concurrent React)
+          </textarea>
+        </section>
 
-		<script src="dist/reveal.js"></script>
-		<script src="plugin/notes/notes.js"></script>
-		<script src="plugin/markdown/markdown.js"></script>
-		<script src="plugin/highlight/highlight.js"></script>
-		<script>
-			// More info about initialization & config:
-			// - https://revealjs.com/initialization/
-			// - https://revealjs.com/config/
-			Reveal.initialize({
-				hash: true,
+        <section>
+          <section data-markdown>
+            <textarea data-template>
+              # Satisfies
+              Short Code Snippet
+              Running Beispiel, Was wäre ohne nicht möglich
+            </textarea>
+          </section>
+        </section>
 
-				// Learn about plugins: https://revealjs.com/plugins/
-				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
-			});
-		</script>
-	</body>
+        <section>
+          <section data-markdown>
+            <textarea data-template>
+              # `const` in Type Parameters
+            </textarea>
+          </section>
+
+          <section>
+            <h3><code>as const</code></h3>
+            <pre> <code class="ts" data-line-numbers="1-3|1-6|1-3,8,9"> <script type="text/template">type Names = readonly string[];
+
+const getNames = <T extends Names>(arg: T): T => arg;
+
+const names = getNames(["Ed", "Kelly", "Gordon"]);
+// Type of names: string[]
+
+const names2 = getNames(["Ed", "Kelly", "Gordon"] as const);
+//Type of names2: readonly ["Ed", "Kelly", "Gordon"]</script></code></pre>
+          </section>
+
+          <section>
+            <h3><code>&lt;const T&gt;</code></h3>
+            <pre> <code class="ts" data-line-numbers=> <script type="text/template">type Names = readonly string[];
+
+const getNames2 = <const T extends Names>(arg: T): T => arg;
+
+const names2 = getNames2(["Ed", "Kelly", "Gordon"]);
+//Type of names2: readonly ["Ed", "Kelly", "Gordon"]</script></code></pre>
+          </section>
+        </section>
+
+        <section>
+          <section data-markdown>
+            <textarea data-template>
+              # Decorators
+              (nodejs, maybe also for the lucky out there who are using ts on server-side as well)
+              Short Code Snippet
+              Running Beispiel, Was mit Timing
+            </textarea>
+          </section>
+        </section>
+
+        <section>
+          <section data-markdown>
+            <textarea data-template>
+              # Concurrent React
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ## useTransition
+              Short Code Snippet
+              Running Beispiel, Mit und Ohne
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ## startTransition
+              Short Code Snippet
+              Running Beispiel, Mit und Ohne
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ## useDeferredValue
+              Short Code Snippet
+              Running Beispiel, Mit und Ohne
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ## Suspense
+              Server-side benefits
+              Code Beispiel slide-only, Bsp. mit next.js
+            </textarea>
+          </section>
+        </section>
+
+        <section>
+          <section data-markdown>
+            <textarea data-template>
+              # useId
+              For a11y purposes, works for client and server components, not for lists!
+              Code Beispiel slide-only
+            </textarea>
+          </section>
+        </section>
+
+        <section>
+          <section data-markdown>
+            <textarea data-template>
+              # Automatic Batching
+              Running Beispiel, w/ and w/o flushSync
+            </textarea>
+          </section>
+        </section>
+
+        <section>
+          <section data-markdown>
+            <textarea data-template>
+              # Einen hab ich noch
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              # :has
+              Short Code Snippet
+              Running Beispiel, Was ist ohne :has nicht möglich
+            </textarea>
+          </section>
+        </section>
+
+        <section data-markdown>
+          <textarea data-template>
+            # The End
+          </textarea>
+        </section>
+
+        <section data-markdown>
+          <textarea data-template>
+            ## Notes
+            - use template literal type in a sample
+          </textarea>
+        </section>
+
+        <section>
+          <section data-markdown>
+            <textarea data-template>
+              ## List w/ Highlights
+              - When no <span class="highlight">type</span> of a variable is
+              given, an <span class="alert">error</span> will be thrown
+              - Either use <code>any</code> if intended or use the correct type
+            </textarea>
+          </section>
+
+          <section>
+            <h2>Code Sample</h2>
+            <pre><code class="ts" data-line-numbers>function anyFunction(param) {
+  ...   
+}
+// Error: Parameter 'param' implicitly has an 'any' type</code></pre>
+          </section>
+
+          <section>
+            <h2>Code Stepwise Sample</h2>
+            <pre><code data-line-numbers>--noImplicitAny</code></pre>
+            <pre><code data-line-numbers="1,2,4,5|3">{
+    "compilerOptions": {
+        "noImplicitAny": true
+    }
+}</code></pre>
+          </section>
+
+          <section>
+            <h2>Gif Sample</h2>
+            <img
+              src="https://devblogs.microsoft.com/typescript/wp-content/uploads/sites/11/2019/05/extractType-3.5.gif"
+              alt=""
+            />
+          </section>
+        </section>
+      </div>
+    </div>
+
+    <script src="dist/reveal.js"></script>
+    <script src="plugin/notes/notes.js"></script>
+    <script src="plugin/markdown/markdown.js"></script>
+    <script src="plugin/highlight/highlight.js"></script>
+    <script>
+      // More info about initialization & config:
+      // - https://revealjs.com/initialization/
+      // - https://revealjs.com/config/
+      Reveal.initialize({
+        controlsTutorial: false,
+        hash: true,
+
+        // Learn about plugins: https://revealjs.com/plugins/
+        plugins: [RevealMarkdown, RevealHighlight, RevealNotes],
+      });
+    </script>
+  </body>
 </html>
