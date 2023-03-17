@@ -1,40 +1,476 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
 
-		<title>reveal.js</title>
+    <title>reveal.js</title>
 
-		<link rel="stylesheet" href="dist/reset.css">
-		<link rel="stylesheet" href="dist/reveal.css">
-		<link rel="stylesheet" href="dist/theme/black.css">
+    <link rel="stylesheet" href="dist/reset.css" />
+    <link rel="stylesheet" href="dist/reveal.css" />
+    <link rel="stylesheet" href="dist/theme/my.css" />
 
-		<!-- Theme used for syntax highlighted code -->
-		<link rel="stylesheet" href="plugin/highlight/monokai.css">
-	</head>
-	<body>
-		<div class="reveal">
-			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
-			</div>
-		</div>
+    <!-- Theme used for syntax highlighted code -->
+    <link rel="stylesheet" href="plugin/highlight/zenburn.css" />
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section data-markdown>
+          <textarea data-template>
+            # What's New Out There
+            (in React and TypeScript)
+          </textarea>
+        </section>
 
-		<script src="dist/reveal.js"></script>
-		<script src="plugin/notes/notes.js"></script>
-		<script src="plugin/markdown/markdown.js"></script>
-		<script src="plugin/highlight/highlight.js"></script>
-		<script>
-			// More info about initialization & config:
-			// - https://revealjs.com/initialization/
-			// - https://revealjs.com/config/
-			Reveal.initialize({
-				hash: true,
+        <section>
+          <section data-markdown>
+            <textarea data-template>
+              # Satisfies
+            </textarea>
+          </section>
 
-				// Learn about plugins: https://revealjs.com/plugins/
-				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
-			});
-		</script>
-	</body>
+          <section>
+            <pre>
+              <code class="ts" data-line-numbers="1-6|1-8">
+              <script type="text/template">const colors: Record<Color, HexColor | RGB> = {
+  FancyBlue: { value: "blue" },
+  //Nope, doesn't match HexColor | RGB
+  DarkBlack: [0, 0, 0],
+  BrightWhite: "#fff",
+};
+
+//Nope, toUpperCase doesn't exist on RGB
+colors.BrightWhite.toUpperCase();
+              </script>
+              </code>
+            </pre>
+          </section>
+
+          <section>
+            <pre>
+              <code class="ts" data-line-numbers>
+              <script type="text/template">const colors = {
+  FancyBlue: "#00f",
+  DarkBlack: [0, 0, 0],
+  BrightWhite: "#fff",
+} satisfies Record<Color, HexColor | RGB>;
+
+//All fine
+colors.BrightWhite.toUpperCase();
+              </script>
+              </code>
+            </pre>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ### Custom type from object, but type safe
+              Live sample, see `live-samples/satisfies.ts`
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ## Benefits
+              - Get type safety for union types without using discriminant
+              - No `as Type` necessary which can lead to mistakes
+              - Implicit types more strict
+            </textarea>
+          </section>
+        </section>
+
+        <section>
+          <section data-markdown>
+            <textarea data-template>
+              # `const` in Type Parameters
+            </textarea>
+          </section>
+
+          <section>
+            <h3><code>as const</code></h3>
+            <pre>
+              <code class="ts" data-line-numbers="1-3|1-6|1-3,8,9">
+              <script type="text/template">type Names = readonly string[];
+
+const getNames = <T extends Names>(arg: T): T => arg;
+
+const names = getNames(["Ed", "Kelly", "Gordon"]);
+// Type of names: string[]
+
+const namesConst = getNames(["Ed", "Kelly", "Gordon"] as const);
+//Type of namesConst: readonly ["Ed", "Kelly", "Gordon"]
+              </script>
+              </code>
+            </pre>
+          </section>
+
+          <section>
+            <h3><code>&lt;const T&gt;</code></h3>
+            <pre> <code class="ts" data-line-numbers> <script type="text/template">type Names = readonly string[];
+
+const getNamesConst = <const T extends Names>(arg: T): T => arg;
+
+const namesConst = getNamesConst(["Ed", "Kelly", "Gordon"]);
+//Type of namesConst: readonly ["Ed", "Kelly", "Gordon"]</script></code></pre>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ## Benefits
+              - The consumer of a function doesn't need to take care of ensuring const type
+              - Supplying whatever functionality with const type is hidden in the encapsulation
+            </textarea>
+          </section>
+        </section>
+
+        <section>
+          <section data-markdown>
+            <textarea data-template>
+              # Concurrent React
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ## Why Concurrency?
+              - Normally state updates are blocking
+              - When a state update has heavy load, it blocks the UI and the user can't interact with it
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ## `useTransition`
+              - Hook to allow running heavy state update while keeping the UI responsive
+              - Live sample, see `live-samples/concurrent`
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ## `startTransition`
+              - Like `useTransition` but since it's no hook one can use it in non-component scope, e.g. API fetching methods, etc.
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              - The function passed to `startTransition` must be synchronous
+              - Can't be used to control text inputs
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ## `useDeferredValue`
+              - Useful to control text inputs
+              - Value should be a primitive or an object which is created outside of the render cycle
+              - Re-rendering with old value first and in background with new one
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              - There is no fixed delay, only relies on re-rendering
+              - Background re-render can be interrupted
+              - Live sample, see `live-samples/concurrent`
+            </textarea>
+          </section>
+
+          <section>
+            <h2>Suspense</h2>
+            <pre>
+              <code class="tsx" data-line-numbers>
+              <script type="text/template"><Suspense fallback={<Loading />}>
+  <Result />
+</Suspense>            
+              </script>
+              </code>
+            </pre>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              > "Suspense-enabled data fetching without the use of an opinionated framework is not yet supported"
+              (https://react.dev/reference/react/Suspense)
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              - Data Fetching with Next.js and Relay
+              - Lazy-loading components with lazy
+            </textarea>
+          </section>
+        </section>
+
+        <section>
+          <section data-markdown>
+            <textarea data-template>
+              # New Hook: `useId`
+            </textarea>
+          </section>
+
+          <section>
+            <pre>
+              <code class="ts" data-line-numbers>
+              <script type="text/template">const passwordHintId = useId();
+
+<label>
+  Password:
+  <input type="password" aria-describedby={passwordHintId} />
+</label>
+
+<p id={passwordHintId}>
+  The password must contain letters and numbers.
+</p>
+              </script>
+              </code>
+            </pre>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ## Benefits
+              - Ensures unique ids for accessibility purposes
+              - Works for client and server-side components
+              - <span class="alert">Attention</span>: Must not be used for generating keys in enumerations!
+            </textarea>
+          </section>
+        </section>
+
+        <section>
+          <section data-markdown>
+            <textarea data-template>
+              # Automatic Batching
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ### Batching in React
+              - Combine different state updates to avoid too many re-render cycles  
+              <span class="highlight">--&rarr;</span> Calling two different <span class="highlight">setState</span> in a row will re-render only once
+              - React 17 batched only during browser event
+            </textarea>
+          </section>
+
+          <section>
+            <pre>
+              <code class="ts" data-line-numbers>
+              <script type="text/template">const handleClick = () => {
+  setState1(21);
+  setState2(42);
+}
+              </script>
+              </code>
+            </pre>
+            One re-render
+          </section>
+
+          <section>
+            <pre>
+              <code class="ts" data-line-numbers>
+              <script type="text/template">const handleClick = async () => {
+  const result = await doSthAsync();
+  setState1(21);
+  setState2(42);
+}
+              </script>
+              </code>
+            </pre>
+            <span class="alert">Re-renders twice!</span>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ### Automatic Batching in React 18
+              - Combines all state updates beginning from `createRoot`
+                - `setState`
+                - `setTimeout`, `setInterval`
+                - Asynchronous Operations
+                - Event Handlers
+                - ...
+            </textarea>
+          </section>
+
+          <section>
+            <h3>With React 18</h3>
+            <pre>
+              <code class="ts" data-line-numbers>
+              <script type="text/template">const handleClick = async () => {
+  const result = await doSthAsync();
+  setState1(21);
+  setState2(42);
+}
+              </script>
+              </code>
+            </pre>
+            <span class="highlight">Only one re-render</span>
+          </section>
+
+          <section>
+            <h3>Force re-render cycles</h3>
+            <pre>
+              <code class="ts" data-line-numbers>
+              <script type="text/template">const handleClick = async () => {
+  const result = await doSthAsync();
+  flushSync(() => {
+    setState1(21);
+  });
+  flushSync(() => {
+    setState2(42);
+  });
+}
+              </script>
+              </code>
+            </pre>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h2>Some CSS...</h2>
+            <img
+              src="https://preview.redd.it/bptzx7ur4uj11.jpg?auto=webp&s=e6660e4545b2463db71c4acb481624730914f8e1"
+              alt=""
+              style="height: 50vh"
+            />
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ## New pseudo-class `:has()`
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              - It checks whether a relative selector matches the element
+              - Unlike class sibling and similar selectors it styles the first, not the last element in the expression
+            </textarea>
+          </section>
+
+          <section>
+            <pre>
+              <code class="css" data-line-numbers="1-7|1-3,9-11">
+              <script type="text/template">article {
+  width: 100%;
+}
+/*make article smaller when there is a sidebar following*/
+article + aside {
+  width: 80%; /*Nope, that styles the aside, not the article*/
+}
+
+article:has(+ aside) {
+  width: 80%;
+}
+              </script>
+              </code>
+            </pre>
+          </section>
+
+          <section>
+            <pre>
+              <code class="css" data-line-numbers>
+              <script type="text/template">.tile:has(img) {
+  grid-column: span 2;
+}
+              </script>
+              </code>
+            </pre>
+          </section>
+
+          <section>
+            <pre>
+              <code class="css" data-line-numbers>
+              <script type="text/template">article:has(h1, h2) {
+  /* contains a h1 or h2 */
+}
+article:has(h1):has(h2) {
+  /* contains a h1 AND h2 */
+}
+              </script>
+              </code>
+            </pre>
+          </section>
+
+          <section id="fragments">
+            <h3>Specificity</h3>
+            <pre>
+              <code class="css" data-line-numbers>
+              <script type="text/template">article:has(.some-class, #id, img) {
+  background: black;
+}
+
+article .some-class {
+  background: white;
+}
+              </script>
+              </code>
+            </pre>
+            <p class="fragment">It's black!</p>
+            <p class="fragment">
+              --&rarr; The most specific element in the argument list defines
+              the specificity of `:has`
+            </p>
+          </section>
+
+          <section id="fragments">
+            <h3>Combining with <code>:is</code></h3>
+            <pre>
+              <code class="css" data-line-numbers>:has(h1, h2){}
+:has(:is(h1, h2)){}
+              </code>
+            </pre>
+            <pre class="fragment">
+              <code class="css" data-line-numbers>:has(+ h1, + h2){}
+:has(+ :is(h1, h2)){}
+              </code>
+            </pre>
+            <pre class="fragment">
+              <code class="css" data-line-numbers>:is(h1, h2):has(a) {}
+h1:has(a), h2:has(a) {}
+              </code>
+            </pre>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ### Some Notes
+              - It does not support pseudo-selectors elements
+                - except some allowed ones, like `:not` and input states, like `:focus`
+              - It can't be nested, so `element:has(other:has(...))` is not possible
+              - Browser Support: Chrome yes, other platforms partly supported &rarr; [Can I use :has](https://caniuse.com/css-has)
+            </textarea>
+          </section>
+        </section>
+
+        <section>
+          <img src="https://i.imgflip.com/yew6h.jpg" alt="" />
+        </section>
+      </div>
+    </div>
+
+    <script src="dist/reveal.js"></script>
+    <script src="plugin/notes/notes.js"></script>
+    <script src="plugin/markdown/markdown.js"></script>
+    <script src="plugin/highlight/highlight.js"></script>
+    <script>
+      // More info about initialization & config:
+      // - https://revealjs.com/initialization/
+      // - https://revealjs.com/config/
+      Reveal.initialize({
+        controlsTutorial: false,
+        hash: true,
+
+        // Learn about plugins: https://revealjs.com/plugins/
+        plugins: [RevealMarkdown, RevealHighlight, RevealNotes],
+      });
+    </script>
+  </body>
 </html>

@@ -1,0 +1,99 @@
+/**
+ * Black theme for reveal.js. This is the opposite of the 'white' theme.
+ *
+ * By Hakim El Hattab, http://hakim.se
+ */
+
+// Default mixins and settings -----------------
+@import "../template/mixins";
+@import "../template/settings";
+// ---------------------------------------------
+
+// Include theme-specific fonts
+@import url(./fonts/source-sans-pro/source-sans-pro.css);
+
+// Override theme settings (see ../template/settings.scss)
+$backgroundColor: #1d1d1d;
+
+$mainColor: #ededed;
+$headingColor: #007acc;
+
+$mainFontSize: 42px;
+$mainFont: "Source Sans Pro", Helvetica, sans-serif;
+$headingFont: "Source Sans Pro", Helvetica, sans-serif;
+$headingTextShadow: none;
+$headingLetterSpacing: normal;
+$headingTextTransform: none;
+$headingFontWeight: 200;
+$linkColor: #42affa;
+$linkColorHover: lighten($linkColor, 15%);
+$selectionBackgroundColor: rgba($linkColor, 0.75);
+
+$heading1Size: 2.5em;
+$heading2Size: 1.6em;
+$heading3Size: 1.3em;
+$heading4Size: 1em;
+
+// Change text colors against light slide backgrounds
+@include light-bg-text-color(#222);
+
+// Theme template ------------------------------
+@import "../template/theme";
+// ---------------------------------------------
+
+.reveal {
+  section {
+    h2 {
+      margin-bottom: 4rem;
+    }
+
+    .highlight {
+      color: #c9f833;
+    }
+
+    .alert {
+      color: #ff3737;
+    }
+  }
+
+  blockquote {
+    border-left: 6px solid #007acc;
+    padding-left: 1rem;
+    width: auto;
+  }
+
+  code {
+    background-color: #3f3f3f;
+    color: white;
+    padding: 0.2rem;
+  }
+
+  h1 > code,
+  h2 > code,
+  h3 > code {
+    background: transparent;
+    color: inherit;
+    padding: 0;
+  }
+
+  pre {
+    font-size: 0.55em;
+    width: auto;
+    padding: 0.5rem;
+    word-wrap: break-word;
+    overflow: auto;
+    background-color: #3f3f3f;
+    color: white;
+  }
+
+  .hljs {
+    &.has-highlights tr:not(.highlight-line) {
+      opacity: 0.3;
+      filter: saturate(0.3);
+    }
+
+    &:not(:first-child).fragment {
+      padding: 0.7rem;
+    }
+  }
+}
