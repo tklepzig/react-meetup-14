@@ -364,6 +364,18 @@ section.has-light-background, section.has-light-background h1, section.has-light
 .reveal section .alert {
   color: #ff3737;
 }
+.reveal code {
+  background-color: #3f3f3f;
+  color: white;
+  padding: 0.2rem;
+}
+.reveal h1 > code,
+.reveal h2 > code,
+.reveal h3 > code {
+  background: transparent;
+  color: inherit;
+  padding: 0;
+}
 .reveal pre {
   font-size: 0.55em;
   width: auto;
@@ -372,11 +384,6 @@ section.has-light-background, section.has-light-background h1, section.has-light
   overflow: auto;
   background-color: #3f3f3f;
   color: white;
-}
-.reveal pre code {
-  background-color: #3f3f3f;
-  color: white;
-  padding: 0.2rem;
 }
 .reveal .hljs.has-highlights tr:not(.highlight-line) {
   opacity: 0.3;

@@ -56,6 +56,20 @@ $heading4Size: 1em;
     }
   }
 
+  code {
+    background-color: #3f3f3f;
+    color: white;
+    padding: 0.2rem;
+  }
+
+  h1 > code,
+  h2 > code,
+  h3 > code {
+    background: transparent;
+    color: inherit;
+    padding: 0;
+  }
+
   pre {
     font-size: 0.55em;
     width: auto;
@@ -64,12 +78,6 @@ $heading4Size: 1em;
     overflow: auto;
     background-color: #3f3f3f;
     color: white;
-
-    code {
-      background-color: #3f3f3f;
-      color: white;
-      padding: 0.2rem;
-    }
   }
 
   .hljs {
