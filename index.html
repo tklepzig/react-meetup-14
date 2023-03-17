@@ -136,33 +136,74 @@ const namesConst = getNamesConst(["Ed", "Kelly", "Gordon"]);
 
           <section data-markdown>
             <textarea data-template>
-              ## useTransition
-              Short Code Snippet
-              Running Beispiel, Mit und Ohne
+              ## Why Concurrency?
+              - Normally state updates are blocking
+              - When a state update has heavy load, it blocks the UI and the user can't interact with it
             </textarea>
           </section>
 
           <section data-markdown>
             <textarea data-template>
-              ## startTransition
-              Short Code Snippet
-              Running Beispiel, Mit und Ohne
+              ## `useTransition`
+              - Hook to allow running heavy state update while keeping the UI responsive
+              - Live sample, see `live-samples/concurrent`
             </textarea>
           </section>
 
           <section data-markdown>
             <textarea data-template>
-              ## useDeferredValue
-              Short Code Snippet
-              Running Beispiel, Mit und Ohne
+              ## `startTransition`
+              - Like `useTransition` but since it's no hook one can use it in non-component scope, e.g. API fetching methods, etc.
             </textarea>
           </section>
 
           <section data-markdown>
             <textarea data-template>
-              ## Suspense
-              Server-side benefits
-              Code Beispiel slide-only, Bsp. mit next.js
+              - The function passed to `startTransition` must be synchronous
+              - Can't be used to control text inputs
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ## `useDeferredValue`
+              - Useful to control text inputs
+              - Value should be a primitive or an object which is created outside of the render cycle
+              - Re-rendering with old value first and in background with new one
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              - There is no fixed delay, only relies on re-rendering
+              - Background re-render can be interrupted
+              - Live sample, see `live-samples/concurrent`
+            </textarea>
+          </section>
+
+          <section>
+            <h2>Suspense</h2>
+            <pre>
+              <code class="tsx" data-line-numbers>
+              <script type="text/template"><Suspense fallback={<Loading />}>
+  <Result />
+</Suspense>            
+              </script>
+              </code>
+            </pre>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              > "Suspense-enabled data fetching without the use of an opinionated framework is not yet supported"
+              (https://react.dev/reference/react/Suspense)
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              - Data Fetching with Next.js and Relay
+              - Lazy-loading components with lazy
             </textarea>
           </section>
         </section>

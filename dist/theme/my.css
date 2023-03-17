@@ -364,6 +364,11 @@ section.has-light-background, section.has-light-background h1, section.has-light
 .reveal section .alert {
   color: #ff3737;
 }
+.reveal blockquote {
+  border-left: 6px solid #007acc;
+  padding-left: 1rem;
+  width: auto;
+}
 .reveal code {
   background-color: #3f3f3f;
   color: white;

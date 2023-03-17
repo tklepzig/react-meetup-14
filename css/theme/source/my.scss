@@ -56,6 +56,12 @@ $heading4Size: 1em;
     }
   }
 
+  blockquote {
+    border-left: 6px solid #007acc;
+    padding-left: 1rem;
+    width: auto;
+  }
+
   code {
     background-color: #3f3f3f;
     color: white;
