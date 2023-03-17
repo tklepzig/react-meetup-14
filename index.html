@@ -21,8 +21,8 @@
       <div class="slides">
         <section data-markdown>
           <textarea data-template>
-            # Nice headline and opening
-            (nice meme?, Schwerpunkt Concurrent React)
+            # What's New Out There
+            (in React and TypeScript)
           </textarea>
         </section>
 
@@ -130,7 +130,7 @@ const namesConst = getNamesConst(["Ed", "Kelly", "Gordon"]);
         <section>
           <section data-markdown>
             <textarea data-template>
-              # Decorators
+              # ( Decorators )
               (nodejs, maybe also for the lucky out there who are using ts on server-side as well)
               Short Code Snippet
               Running Beispiel, Was mit Timing
@@ -181,9 +181,34 @@ const namesConst = getNamesConst(["Ed", "Kelly", "Gordon"]);
         <section>
           <section data-markdown>
             <textarea data-template>
-              # useId
-              For a11y purposes, works for client and server components, not for lists!
-              Code Beispiel slide-only
+              # New Hook: `useId`
+            </textarea>
+          </section>
+
+          <section>
+            <pre>
+              <code class="ts" data-line-numbers>
+              <script type="text/template">const passwordHintId = useId();
+
+<label>
+  Password:
+  <input type="password" aria-describedby={passwordHintId} />
+</label>
+
+<p id={passwordHintId}>
+  The password must contain letters and numbers.
+</p>
+              </script>
+              </code>
+            </pre>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ## Benefits
+              - Ensures unique ids for accessibility purposes
+              - Works for client and server-side components
+              - <span class="alert">Attention</span>: Must not be used for generating keys in enumerations!
             </textarea>
           </section>
         </section>
@@ -198,69 +223,24 @@ const namesConst = getNamesConst(["Ed", "Kelly", "Gordon"]);
         </section>
 
         <section>
-          <section data-markdown>
-            <textarea data-template>
-              # Einen hab ich noch
-            </textarea>
+          <section>
+            <h2>Some CSS...</h2>
+            <img
+              src="https://preview.redd.it/bptzx7ur4uj11.jpg?auto=webp&s=e6660e4545b2463db71c4acb481624730914f8e1"
+              alt=""
+              style="height: 50vh"
+            />
           </section>
 
           <section data-markdown>
             <textarea data-template>
-              # :has
-              Short Code Snippet
-              Running Beispiel, Was ist ohne :has nicht möglich
+              ## New pseudo-class `:has()`
             </textarea>
           </section>
-        </section>
-
-        <section data-markdown>
-          <textarea data-template>
-            # The End
-          </textarea>
-        </section>
-
-        <section data-markdown>
-          <textarea data-template>
-            ## Notes
-            - use template literal type in a sample
-          </textarea>
         </section>
 
         <section>
-          <section data-markdown>
-            <textarea data-template>
-              ## List w/ Highlights
-              - When no <span class="highlight">type</span> of a variable is
-              given, an <span class="alert">error</span> will be thrown
-              - Either use <code>any</code> if intended or use the correct type
-            </textarea>
-          </section>
-
-          <section>
-            <h2>Code Sample</h2>
-            <pre><code class="ts" data-line-numbers>function anyFunction(param) {
-  ...   
-}
-// Error: Parameter 'param' implicitly has an 'any' type</code></pre>
-          </section>
-
-          <section>
-            <h2>Code Stepwise Sample</h2>
-            <pre><code data-line-numbers>--noImplicitAny</code></pre>
-            <pre><code data-line-numbers="1,2,4,5|3">{
-    "compilerOptions": {
-        "noImplicitAny": true
-    }
-}</code></pre>
-          </section>
-
-          <section>
-            <h2>Gif Sample</h2>
-            <img
-              src="https://devblogs.microsoft.com/typescript/wp-content/uploads/sites/11/2019/05/extractType-3.5.gif"
-              alt=""
-            />
-          </section>
+          <img src="https://i.imgflip.com/yew6h.jpg" alt="" />
         </section>
       </div>
     </div>
