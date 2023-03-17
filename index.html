@@ -217,8 +217,88 @@ const namesConst = getNamesConst(["Ed", "Kelly", "Gordon"]);
           <section data-markdown>
             <textarea data-template>
               # Automatic Batching
-              Running Beispiel, w/ and w/o flushSync
             </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ### Batching in React
+              - Combine different state updates to avoid too many re-render cycles  
+              <span class="highlight">--&rarr;</span> Calling two different <span class="highlight">setState</span> in a row will re-render only once
+              - React 17 batched only during browser event
+            </textarea>
+          </section>
+
+          <section>
+            <pre>
+              <code class="ts" data-line-numbers>
+              <script type="text/template">const handleClick = () => {
+  setState1(21);
+  setState2(42);
+}
+              </script>
+              </code>
+            </pre>
+            One re-render
+          </section>
+
+          <section>
+            <pre>
+              <code class="ts" data-line-numbers>
+              <script type="text/template">const handleClick = async () => {
+  const result = await doSthAsync();
+  setState1(21);
+  setState2(42);
+}
+              </script>
+              </code>
+            </pre>
+            <span class="alert">Re-renders twice!</span>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ### Automatic Batching in React 18
+              - Combines all state updates beginning from `createRoot`
+                - `setState`
+                - `setTimeout`, `setInterval`
+                - Asynchronous Operations
+                - Event Handlers
+                - ...
+            </textarea>
+          </section>
+
+          <section>
+            <h3>With React 18</h3>
+            <pre>
+              <code class="ts" data-line-numbers>
+              <script type="text/template">const handleClick = async () => {
+  const result = await doSthAsync();
+  setState1(21);
+  setState2(42);
+}
+              </script>
+              </code>
+            </pre>
+            <span class="highlight">Only one re-render</span>
+          </section>
+
+          <section>
+            <h3>Force re-render cycles</h3>
+            <pre>
+              <code class="ts" data-line-numbers>
+              <script type="text/template">const handleClick = async () => {
+  const result = await doSthAsync();
+  flushSync(() => {
+    setState1(21);
+  });
+  flushSync(() => {
+    setState2(42);
+  });
+}
+              </script>
+              </code>
+            </pre>
           </section>
         </section>
 
