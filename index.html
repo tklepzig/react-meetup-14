@@ -35,7 +35,7 @@
 
           <section>
             <pre>
-              <code class="ts" data-line-numbers="1-6|1-8">
+              <code class="ts" data-line-numbers="1-6|1-9">
               <script type="text/template">const colors: Record<Color, HexColor | RGB> = {
   FancyBlue: { value: "blue" },
   //Nope, doesn't match HexColor | RGB
@@ -68,7 +68,7 @@ colors.BrightWhite.toUpperCase();
 
           <section data-markdown>
             <textarea data-template>
-              ### Custom type from object, but type safe
+              ### `satisfies` in action
               Live sample, see `live-samples/satisfies.ts`
             </textarea>
           </section>

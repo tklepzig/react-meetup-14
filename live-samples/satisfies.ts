@@ -6,13 +6,13 @@ type HexColorPart = HexLetter | HexNumber;
 type HexColor = `#${HexColorPart}${HexColorPart}${HexColorPart}`;
 type RGB = [number, number, number];
 
-//const colors: Record<Color, HexColor | RGB> = {
-//FancyBlue: { value: "blue" },
-//DarkBlack: [0, 0, 0],
-//BrightWhite: "#fff",
-//};
+const colors: Record<Color, HexColor | RGB> = {
+  FancyBlue: { value: "blue" },
+  DarkBlack: [0, 0, 0],
+  BrightWhite: "#fff",
+};
 
-//colors.BrightWhite.toUpperCase();
+colors.BrightWhite.toUpperCase();
 
 //const colors = {
 //FancyBlue: "#00f",
