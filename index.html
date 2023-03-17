@@ -306,6 +306,107 @@ const namesConst = getNamesConst(["Ed", "Kelly", "Gordon"]);
               ## New pseudo-class `:has()`
             </textarea>
           </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              - It checks whether a relative selector matches the element
+              - Unlike class sibling and similar selectors it styles the first, not the last element in the expression
+            </textarea>
+          </section>
+
+          <section>
+            <pre>
+              <code class="css" data-line-numbers="1-7|1-3,9-11">
+              <script type="text/template">article {
+  width: 100%;
+}
+/*make article smaller when there is a sidebar following*/
+article + aside {
+  width: 80%; /*Nope, that styles the aside, not the article*/
+}
+
+article:has(+ aside) {
+  width: 80%;
+}
+              </script>
+              </code>
+            </pre>
+          </section>
+
+          <section>
+            <pre>
+              <code class="css" data-line-numbers>
+              <script type="text/template">.tile:has(img) {
+  grid-column: span 2;
+}
+              </script>
+              </code>
+            </pre>
+          </section>
+
+          <section>
+            <pre>
+              <code class="css" data-line-numbers>
+              <script type="text/template">article:has(h1, h2) {
+  /* contains a h1 or h2 */
+}
+article:has(h1):has(h2) {
+  /* contains a h1 AND h2 */
+}
+              </script>
+              </code>
+            </pre>
+          </section>
+
+          <section id="fragments">
+            <h3>Specificity</h3>
+            <pre>
+              <code class="css" data-line-numbers>
+              <script type="text/template">article:has(.some-class, #id, img) {
+  background: black;
+}
+
+article .some-class {
+  background: white;
+}
+              </script>
+              </code>
+            </pre>
+            <p class="fragment">It's black!</p>
+            <p class="fragment">
+              --&rarr; The most specific element in the argument list defines
+              the specificity of `:has`
+            </p>
+          </section>
+
+          <section id="fragments">
+            <h3>Combining with <code>:is</code></h3>
+            <pre>
+              <code class="css" data-line-numbers>:has(h1, h2){}
+:has(:is(h1, h2)){}
+              </code>
+            </pre>
+            <pre class="fragment">
+              <code class="css" data-line-numbers>:has(+ h1, + h2){}
+:has(+ :is(h1, h2)){}
+              </code>
+            </pre>
+            <pre class="fragment">
+              <code class="css" data-line-numbers>:is(h1, h2):has(a) {}
+h1:has(a), h2:has(a) {}
+              </code>
+            </pre>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ### Some Notes
+              - It does not support pseudo-selectors elements
+                - except some allowed ones, like `:not` and input states, like `:focus`
+              - It can't be nested, so `element:has(other:has(...))` is not possible
+              - Browser Support: Chrome yes, other platforms partly supported &rarr; [Can I use :has](https://caniuse.com/css-has)
+            </textarea>
+          </section>
         </section>
 
         <section>
