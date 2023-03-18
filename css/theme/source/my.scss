@@ -54,6 +54,12 @@ $heading4Size: 1em;
     .alert {
       color: #ff3737;
     }
+
+    &.align-left {
+      p {
+        text-align: left;
+      }
+    }
   }
 
   blockquote {
